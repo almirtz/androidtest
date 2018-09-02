@@ -1,4 +1,6 @@
 import os
+import androiddevice as adev
+
 KEYCODE_UNKNOWN           = 0 
 KEYCODE_MENU              = 1 
 KEYCODE_SOFT_RIGHT        = 2 
@@ -112,46 +114,11 @@ def send_numbers(numbers):
 
 #------------------------------------------------------------------------------
 def send_tap(device, x, y):
-    
-    xd = x // 1.5
-    yd = y // 1.5
-    
-    cmd="%s %s %d %d"% (ADBTOOL, ADB_SEND_TAP, xd, yd)
+        
+    cmd="%s %s %d %d"% (ADBTOOL, ADB_SEND_TAP, x, y)
     os.system(cmd)
     print(cmd)
 
-#------------------------------------------------------------------------------
-def send_tap_map(device, x, y):
-    w,h = get_screen_matrix(device)
-    xs = 300
-    ys = 1100
-    step = 100
-    print("%d %d      %d %d"%(x,y,w,h))
-    if x in range(w) and y in range(h):
-        xd = xs + x*step
-        yd = ys + y*step
-        
-        cmd="%s %s %d %d"% (ADBTOOL, ADB_SEND_TAP, xd, yd)
-        os.system(cmd)
-        print(cmd)
-        
-#------------------------------------------------------------------------------
-def get_screen_matrix(device):
-    xs = 300
-    ys = 1100
-    xe = 860
-    ye = 1500
-    step = 100
-    
-    height = ye - ys
-    width = xe - xs
-    
-    height = height // step
-    width = width // step
-    
-    return width,height
-    
-    
 #------------------------------------------------------------------------------    
 def record_events():
     #TODO
